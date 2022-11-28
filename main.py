@@ -3,13 +3,9 @@ import datetime
 import time
 import sys
 
-def changeNickname(token, guild_id, delay):
+def changeNickname(token, guild_id, delay, name):
     url = f'https://discord.com/api/v9/guilds/{guild_id}/members/@me' # 487226897487364097 <- Qual
     headers = {'Authorization': f'{token}'}
-
-    g_url = f'https://discord.com/api/v9/users/@me'
-    r_name = requests.get(g_url, headers=headers)
-    name = r_name.json()["username"]
 
     while True:
         time_ = datetime.datetime.now().strftime("%H:%M")
@@ -32,7 +28,14 @@ if __name__ == '__main__':
     if len(guild) < 2:
         guild = input("Enter guild id: ")
     delay = int(input("Enter delay (seconds) between nick change: "))
-    if delay < 60:
-        sys.exit("Delay must be greater than 60 seconds")
+    if delay < 30:
+        sys.exit("Delay must be greater than 30 seconds")
+    name = input("Enter name (optional): ")
+    if name == '':
+        g_url = f'https://discord.com/api/v9/users/@me'
+        headers = {'Authorization': f'{TOKEN}'}
+        r_name = requests.get(g_url, headers=headers)
+        name = r_name.json()["username"]
+        changeNickname(TOKEN, guild, delay, name)
     else:
-        changeNickname(TOKEN, guild, delay)
+        changeNickname(TOKEN, guild, delay, name)
