@@ -1,7 +1,10 @@
 import requests
+from colorama import Back, Fore, Style, init
 import datetime
 import time
 import sys
+
+init()
 
 def changeNickname(token, guild_id, delay, name):
     url = f'https://discord.com/api/v9/guilds/{guild_id}/members/@me' # 487226897487364097 <- Qual
@@ -16,7 +19,10 @@ def changeNickname(token, guild_id, delay, name):
         r = requests.patch(url, headers=headers, json=data)
         r_name = requests.get(url, headers=headers)
 
-        print(f'Change nickname - {r.status_code}\n{r.text}\n\t{data}\n')
+        if r.status_code == 200:
+            print(f'{Fore.GREEN} Change nickname - {r.status_code}\n\t{data}\n')
+        else:
+            print(f'{Fore.RED} Change nickname - {r.status_code}\n{r.text}\n')
 
         time.sleep(delay)
 
