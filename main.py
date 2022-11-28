@@ -34,8 +34,8 @@ if __name__ == '__main__':
     if len(guild) < 2:
         guild = input("Enter guild id: ")
     delay = int(input("Enter delay (seconds) between nick change: "))
-    if delay < 30:
-        sys.exit("Delay must be greater than 30 seconds")
+    # if delay < 30:
+    #     sys.exit("Delay must be greater than 30 seconds")
     name = input("Enter name (optional): ")
     if name == '':
         g_url = f'https://discord.com/api/v9/users/@me'
